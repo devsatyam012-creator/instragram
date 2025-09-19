@@ -3,6 +3,7 @@ import PostCard from "@/components/instagram/PostCard";
 import type { Post } from "@/types/instagram";
 import { useEffect, useState } from "react";
 import { getUserPosts } from "@/lib/posts";
+import { Activity } from "@/lib/activity";
 
 const basePosts: Post[] = [
   {
@@ -87,7 +88,7 @@ export default function Index() {
                         <p className="text-xs text-muted-foreground">Follows you</p>
                       </div>
                     </div>
-                    <button onClick={() => (window.localStorage.setItem(`follow.user_${i+1}`, "1"), location.reload(), undefined)} className="text-sm font-semibold text-primary">Follow</button>
+                    <button onClick={() => { window.localStorage.setItem(`follow.user_${i+1}`, "1"); Activity.add("follow", { user: `user_${i+1}` }); }} className="text-sm font-semibold text-primary">Follow</button>
                   </li>
                 ))}
               </ul>
