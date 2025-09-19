@@ -12,6 +12,9 @@ import Header from "@/components/instagram/Header";
 import BottomNav from "@/components/instagram/BottomNav";
 import PlaceholderPage from "@/components/instagram/PlaceholderPage";
 import Create from "./pages/Create";
+import ActivityPage from "./pages/Activity";
+import MessagesPage from "./pages/Messages";
+import ProfilePage from "./pages/Profile";
 
 const queryClient = new QueryClient();
 
@@ -27,10 +30,10 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/explore" element={<PlaceholderPage title="Explore" />} />
             <Route path="/reels" element={<PlaceholderPage title="Reels" />} />
-            <Route path="/messages" element={<PlaceholderPage title="Messages" />} />
-            <Route path="/activity" element={<PlaceholderPage title="Activity" />} />
+            <Route path="/messages" element={<MessagesPage />} />
+            <Route path="/activity" element={<ActivityPage />} />
             <Route path="/create" element={<Create />} />
-            <Route path="/profile" element={<PlaceholderPage title="Profile" />} />
+            <Route path="/profile" element={<ProfilePage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
