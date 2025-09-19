@@ -34,7 +34,7 @@ export default function Header() {
             <Heart className="h-6 w-6" />
           </a>
           <a href="/profile" aria-label="Profile" className="inline-flex h-8 w-8 items-center justify-center overflow-hidden rounded-full ring-1 ring-border">
-            <img src="https://i.pravatar.cc/64?img=15" alt="Me" className="h-full w-full object-cover" />
+            <img src={(() => { try { const p = JSON.parse(localStorage.getItem("gram.profile") || "{}"); return p.avatar || "https://i.pravatar.cc/64?img=15"; } catch { return "https://i.pravatar.cc/64?img=15"; } })()} alt="Me" className="h-full w-full object-cover" />
           </a>
         </nav>
       </div>
