@@ -87,7 +87,7 @@ export default function Index() {
                         <p className="text-xs text-muted-foreground">Follows you</p>
                       </div>
                     </div>
-                    <a href="#" className="text-sm font-semibold text-primary">Follow</a>
+                    <button onClick={() => (window.localStorage.setItem(`follow.user_${i+1}`, "1"), location.reload(), undefined)} className="text-sm font-semibold text-primary">Follow</button>
                   </li>
                 ))}
               </ul>
