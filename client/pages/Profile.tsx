@@ -1,10 +1,8 @@
-import { getUserPosts } from "@/lib/posts";
 import { useEffect, useState } from "react";
 import type { Post } from "@/types/instagram";
-import { getUserPosts } from "@/lib/posts";
+import { getUserPosts, fileToDataUrl } from "@/lib/posts";
 import { getProfile, updateProfile, type Profile } from "@/lib/profile";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { fileToDataUrl } from "@/lib/posts";
 import { toast } from "sonner";
 import { Activity } from "@/lib/activity";
 
