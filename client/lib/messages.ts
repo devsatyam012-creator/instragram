@@ -1,4 +1,4 @@
-export type Message = { id: string; text: string; fromMe: boolean; time: number };
+export type Message = { id: string; text?: string; image?: string; fromMe: boolean; time: number };
 export type Thread = { id: string; user: { username: string; name: string; avatar: string }; messages: Message[] };
 
 const PREFIX = "gram.thread.";
@@ -23,9 +23,9 @@ export function writeThread(thread: Thread) {
   try { localStorage.setItem(PREFIX + thread.id, JSON.stringify(thread)); } catch {}
 }
 
-export function sendMessage(threadId: string, text: string): Thread {
+export function sendMessage(threadId: string, text: string, image?: string): Thread {
   const t = readThread(threadId);
-  const msg: Message = { id: String(Date.now()), text: text.slice(0, 2000), fromMe: true, time: Date.now() };
+  const msg: Message = { id: String(Date.now()), text: text ? text.slice(0, 2000) : undefined, image, fromMe: true, time: Date.now() };
   t.messages.push(msg);
   writeThread(t);
   return t;
