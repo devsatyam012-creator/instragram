@@ -23,14 +23,9 @@ export default function PostCard({ post }: { post: Post }) {
     if (!liked) Activity.add("like", { postId: post.id });
   };
 
+  const [shareOpen, setShareOpen] = useState(false);
   const onShare = async () => {
-    const url = post.image || window.location.href;
-    try {
-      await navigator.clipboard.writeText(url);
-      toast.success("Link copied to clipboard");
-    } catch {
-      toast.info("Unable to copy. You can share the image directly.");
-    }
+    setShareOpen(true);
   };
 
   const onPostComment = () => {
