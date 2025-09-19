@@ -1,15 +1,6 @@
 import { useState } from "react";
 import { Bookmark, Heart, MessageCircle, MoreHorizontal, SendHorizonal } from "lucide-react";
-
-export type Post = {
-  id: string;
-  user: { name: string; username: string; avatar: string };
-  image: string;
-  liked: boolean;
-  likes: number;
-  caption: string;
-  time: string;
-};
+import type { Post } from "@/types/instagram";
 
 export default function PostCard({ post }: { post: Post }) {
   const [liked, setLiked] = useState(post.liked);

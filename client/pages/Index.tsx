@@ -1,7 +1,10 @@
 import StoryBar from "@/components/instagram/StoryBar";
-import PostCard, { type Post } from "@/components/instagram/PostCard";
+import PostCard from "@/components/instagram/PostCard";
+import type { Post } from "@/types/instagram";
+import { useEffect, useState } from "react";
+import { getUserPosts } from "@/lib/posts";
 
-const posts: Post[] = [
+const basePosts: Post[] = [
   {
     id: "1",
     user: {
@@ -44,6 +47,14 @@ const posts: Post[] = [
 ];
 
 export default function Index() {
+  const [userPosts, setUserPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    setUserPosts(getUserPosts());
+  }, []);
+
+  const posts: Post[] = [...userPosts, ...basePosts];
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/30">
       <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 py-4 sm:py-6 lg:grid-cols-[minmax(0,1fr)_360px]">
