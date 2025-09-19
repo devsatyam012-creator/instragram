@@ -13,7 +13,10 @@ export function getUserPosts(): Post[] {
   }
 }
 
-export function addUserPost(partial: { imageDataUrl: string; caption: string }): Post {
+export function addUserPost(partial: {
+  imageDataUrl: string;
+  caption: string;
+}): Post {
   const newPost: Post = {
     id: String(Date.now()),
     user: {

@@ -1,4 +1,10 @@
-export type ActivityType = "like" | "comment" | "post" | "follow" | "message" | "profile";
+export type ActivityType =
+  | "like"
+  | "comment"
+  | "post"
+  | "follow"
+  | "message"
+  | "profile";
 export type ActivityItem = {
   id: string;
   type: ActivityType;
@@ -34,11 +40,19 @@ const currentUser = {
 
 export const Activity = {
   list(): ActivityItem[] {
-    return read().sort((a, b) => b.time - a.time).slice(0, 100);
+    return read()
+      .sort((a, b) => b.time - a.time)
+      .slice(0, 100);
   },
   add(type: ActivityType, meta?: Record<string, unknown>) {
     const items = read();
-    items.push({ id: String(Date.now() + Math.random()), type, time: Date.now(), actor: currentUser, meta });
+    items.push({
+      id: String(Date.now() + Math.random()),
+      type,
+      time: Date.now(),
+      actor: currentUser,
+      meta,
+    });
     write(items);
   },
 };

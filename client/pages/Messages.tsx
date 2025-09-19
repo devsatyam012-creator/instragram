@@ -1,4 +1,9 @@
-import { demoThreads, readThread, sendMessage, type Thread } from "@/lib/messages";
+import {
+  demoThreads,
+  readThread,
+  sendMessage,
+  type Thread,
+} from "@/lib/messages";
 import { useEffect, useState } from "react";
 import { SendHorizonal } from "lucide-react";
 import { Activity } from "@/lib/activity";
@@ -32,11 +37,20 @@ export default function MessagesPage() {
         <ul>
           {threads.map((t) => (
             <li key={t.id}>
-              <button onClick={() => open(t.id)} className={`flex w-full items-center gap-3 p-3 text-left hover:bg-muted/40 ${current?.id === t.id ? "bg-muted/60" : ""}`}>
-                <img src={t.user.avatar} alt={t.user.name} className="h-10 w-10 rounded-full object-cover" />
+              <button
+                onClick={() => open(t.id)}
+                className={`flex w-full items-center gap-3 p-3 text-left hover:bg-muted/40 ${current?.id === t.id ? "bg-muted/60" : ""}`}
+              >
+                <img
+                  src={t.user.avatar}
+                  alt={t.user.name}
+                  className="h-10 w-10 rounded-full object-cover"
+                />
                 <div className="leading-tight">
                   <p className="text-sm font-medium">{t.user.name}</p>
-                  <p className="text-xs text-muted-foreground truncate max-w-[160px]">{t.messages.at(-1)?.text}</p>
+                  <p className="text-xs text-muted-foreground truncate max-w-[160px]">
+                    {t.messages.at(-1)?.text}
+                  </p>
                 </div>
               </button>
             </li>
@@ -49,12 +63,18 @@ export default function MessagesPage() {
         ) : (
           <>
             <header className="flex items-center gap-3 border-b p-3">
-              <img src={current.user.avatar} className="h-8 w-8 rounded-full object-cover" />
+              <img
+                src={current.user.avatar}
+                className="h-8 w-8 rounded-full object-cover"
+              />
               <div className="text-sm font-semibold">{current.user.name}</div>
             </header>
             <div className="flex-1 space-y-2 overflow-y-auto p-3">
               {current.messages.map((m) => (
-                <div key={m.id} className={`max-w-[70%] rounded-2xl px-3 py-2 text-sm ${m.fromMe ? "ml-auto bg-primary text-primary-foreground" : "bg-muted"}`}>
+                <div
+                  key={m.id}
+                  className={`max-w-[70%] rounded-2xl px-3 py-2 text-sm ${m.fromMe ? "ml-auto bg-primary text-primary-foreground" : "bg-muted"}`}
+                >
                   {m.image ? (
                     <img src={m.image} alt="shared" className="rounded-md" />
                   ) : (
@@ -64,8 +84,16 @@ export default function MessagesPage() {
               ))}
             </div>
             <div className="flex items-center gap-2 border-t p-3">
-              <input value={text} onChange={(e) => setText(e.target.value)} placeholder="Message..." className="flex-1 rounded-full border bg-background px-4 py-2 text-sm outline-none" />
-              <button onClick={onSend} className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground">
+              <input
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                placeholder="Message..."
+                className="flex-1 rounded-full border bg-background px-4 py-2 text-sm outline-none"
+              />
+              <button
+                onClick={onSend}
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
+              >
                 <SendHorizonal className="h-4 w-4" /> Send
               </button>
             </div>

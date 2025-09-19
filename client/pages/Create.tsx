@@ -55,7 +55,9 @@ export default function Create() {
           >
             <ImagePlus className="mb-3 h-10 w-10 text-primary" />
             <p className="text-sm font-semibold">Drag & drop image</p>
-            <p className="text-xs text-muted-foreground">or click to browse (JPG, PNG)</p>
+            <p className="text-xs text-muted-foreground">
+              or click to browse (JPG, PNG)
+            </p>
             <input
               type="file"
               accept="image/*"
@@ -78,7 +80,11 @@ export default function Create() {
       ) : (
         <div className="grid gap-6 lg:grid-cols-[1fr_420px]">
           <div className="overflow-hidden rounded-2xl border bg-black/5">
-            <img src={preview} alt="Selected" className="mx-auto block w-full object-contain" />
+            <img
+              src={preview}
+              alt="Selected"
+              className="mx-auto block w-full object-contain"
+            />
           </div>
           <div className="rounded-2xl border p-4 sm:p-6">
             <h2 className="text-lg font-bold">Write a caption</h2>
@@ -91,7 +97,12 @@ export default function Create() {
             />
             <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
               <span>{caption.length}/2000</span>
-              <button className="hover:underline" onClick={() => setPreview(null)}>Choose different image</button>
+              <button
+                className="hover:underline"
+                onClick={() => setPreview(null)}
+              >
+                Choose different image
+              </button>
             </div>
             <button
               onClick={onSubmit}

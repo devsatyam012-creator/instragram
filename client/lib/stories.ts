@@ -30,10 +30,17 @@ export function getStories(): Story[] {
 }
 
 export function addStory(imageDataUrl: string): Story {
-  const story: Story = { id: String(Date.now()), user: currentUser, image: imageDataUrl, time: Date.now() };
+  const story: Story = {
+    id: String(Date.now()),
+    user: currentUser,
+    image: imageDataUrl,
+    time: Date.now(),
+  };
   const list = getStories();
   list.unshift(story);
-  try { localStorage.setItem(KEY, JSON.stringify(list)); } catch {}
+  try {
+    localStorage.setItem(KEY, JSON.stringify(list));
+  } catch {}
   return story;
 }
 
@@ -42,6 +49,8 @@ export function markViewed(id: string) {
   const idx = list.findIndex((s) => s.id === id);
   if (idx >= 0) {
     list[idx].viewed = true;
-    try { localStorage.setItem(KEY, JSON.stringify(list)); } catch {}
+    try {
+      localStorage.setItem(KEY, JSON.stringify(list));
+    } catch {}
   }
 }

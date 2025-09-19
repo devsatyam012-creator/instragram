@@ -18,14 +18,18 @@ export function getProfile(): Profile {
   if (typeof window === "undefined") return DEFAULT_PROFILE;
   try {
     const raw = localStorage.getItem(KEY);
-    return raw ? { ...DEFAULT_PROFILE, ...(JSON.parse(raw) as Partial<Profile>) } : DEFAULT_PROFILE;
+    return raw
+      ? { ...DEFAULT_PROFILE, ...(JSON.parse(raw) as Partial<Profile>) }
+      : DEFAULT_PROFILE;
   } catch {
     return DEFAULT_PROFILE;
   }
 }
 
 export function setProfile(profile: Profile) {
-  try { localStorage.setItem(KEY, JSON.stringify(profile)); } catch {}
+  try {
+    localStorage.setItem(KEY, JSON.stringify(profile));
+  } catch {}
 }
 
 export function updateProfile(patch: Partial<Profile>): Profile {

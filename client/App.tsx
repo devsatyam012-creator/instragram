@@ -28,7 +28,10 @@ const App = () => (
           <Header />
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/explore" element={<PlaceholderPage title="Explore" />} />
+            <Route
+              path="/explore"
+              element={<PlaceholderPage title="Explore" />}
+            />
             <Route path="/reels" element={<PlaceholderPage title="Reels" />} />
             <Route path="/messages" element={<MessagesPage />} />
             <Route path="/activity" element={<ActivityPage />} />
