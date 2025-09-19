@@ -1,4 +1,4 @@
-export type ActivityType = "like" | "comment" | "post" | "follow" | "message";
+export type ActivityType = "like" | "comment" | "post" | "follow" | "message" | "profile";
 export type ActivityItem = {
   id: string;
   type: ActivityType;
