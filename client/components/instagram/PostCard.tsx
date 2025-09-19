@@ -1,16 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Bookmark, Heart, MessageCircle, MoreHorizontal, SendHorizonal } from "lucide-react";
 import type { Post } from "@/types/instagram";
+import { addComment, getComments, type Comment } from "@/lib/comments";
+import { Activity } from "@/lib/activity";
+import { toast } from "sonner";
 
 export default function PostCard({ post }: { post: Post }) {
   const [liked, setLiked] = useState(post.liked);
   const [saved, setSaved] = useState(false);
   const [likes, setLikes] = useState(post.likes);
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [expanded, setExpanded] = useState(false);
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    setComments(getComments(post.id));
+  }, [post.id]);
 
   const toggleLike = () => {
     setLiked((prev) => !prev);
     setLikes((n) => (liked ? n - 1 : n + 1));
+    if (!liked) Activity.add("like", { postId: post.id });
   };
+
+  const onShare = async () => {
+    const url = post.image || window.location.href;
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success("Link copied to clipboard");
+    } catch {
+      toast.info("Unable to copy. You can share the image directly.");
+    }
+  };
+
+  const onPostComment = () => {
+    if (!text.trim()) return;
+    const c = addComment(post.id, text);
+    setComments((prev) => [...prev, c]);
+    setText("");
+    Activity.add("comment", { postId: post.id, text: c.text });
+  };
+
+  const visibleComments = expanded ? comments : comments.slice(-2);
 
   return (
     <article className="mb-6 rounded-lg border bg-card text-card-foreground">
@@ -40,10 +71,10 @@ export default function PostCard({ post }: { post: Post }) {
             <button className={`p-1 transition-transform ${liked ? "animate-like" : ""}`} onClick={toggleLike} aria-label="Like">
               <Heart className={`h-6 w-6 ${liked ? "fill-rose-500 text-rose-500" : ""}`} />
             </button>
-            <button className="p-1" aria-label="Comment">
+            <button className="p-1" aria-label="Comment" onClick={() => setExpanded(true)}>
               <MessageCircle className="h-6 w-6" />
             </button>
-            <button className="p-1" aria-label="Share">
+            <button className="p-1" aria-label="Share" onClick={onShare}>
               <SendHorizonal className="h-6 w-6" />
             </button>
           </div>
@@ -56,10 +87,24 @@ export default function PostCard({ post }: { post: Post }) {
           <span className="font-semibold mr-2">{post.user.username}</span>
           {post.caption}
         </p>
-        <button className="mt-1 text-xs text-muted-foreground">View all comments</button>
+        {comments.length > 0 && (
+          <div className="mt-1 space-y-1 text-sm">
+            {visibleComments.map((c) => (
+              <div key={c.id}>
+                <span className="font-semibold mr-2">{c.author.username}</span>
+                <span>{c.text}</span>
+              </div>
+            ))}
+            {comments.length > 2 && !expanded && (
+              <button className="text-xs text-muted-foreground" onClick={() => setExpanded(true)}>
+                View all {comments.length} comments
+              </button>
+            )}
+          </div>
+        )}
         <div className="mt-2 flex items-center gap-2 border-t pt-2">
-          <input className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" placeholder="Add a comment..." />
-          <button className="text-sm font-semibold text-primary">Post</button>
+          <input value={text} onChange={(e) => setText(e.target.value)} className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground" placeholder="Add a comment..." />
+          <button className="text-sm font-semibold text-primary" onClick={onPostComment}>Post</button>
         </div>
       </div>
     </article>
