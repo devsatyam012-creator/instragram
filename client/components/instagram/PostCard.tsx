@@ -4,6 +4,7 @@ import type { Post } from "@/types/instagram";
 import { addComment, getComments, type Comment } from "@/lib/comments";
 import { Activity } from "@/lib/activity";
 import { toast } from "sonner";
+import ShareToMessage from "@/components/instagram/ShareToMessage";
 
 export default function PostCard({ post }: { post: Post }) {
   const [liked, setLiked] = useState(post.liked);
