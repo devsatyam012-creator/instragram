@@ -26,6 +26,7 @@ export default function ActivityPage() {
                 {it.type === "comment" && `commented: "${String(it.meta?.text || "")}"`}
                 {it.type === "follow" && "started following you"}
                 {it.type === "message" && "sent you a message"}
+                {it.type === "profile" && "updated their profile"}
               </span>
             </div>
             <span className="ml-auto text-xs text-muted-foreground">{timeAgo(it.time)}</span>
