@@ -55,7 +55,11 @@ export default function MessagesPage() {
             <div className="flex-1 space-y-2 overflow-y-auto p-3">
               {current.messages.map((m) => (
                 <div key={m.id} className={`max-w-[70%] rounded-2xl px-3 py-2 text-sm ${m.fromMe ? "ml-auto bg-primary text-primary-foreground" : "bg-muted"}`}>
-                  {m.text}
+                  {m.image ? (
+                    <img src={m.image} alt="shared" className="rounded-md" />
+                  ) : (
+                    m.text
+                  )}
                 </div>
               ))}
             </div>
